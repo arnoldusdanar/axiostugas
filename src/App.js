@@ -1,23 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [welcomeMessage, setWelcomeMessage] = useState('');
+
+  const handleLoginClick = () => {
+    setIsLoggedIn(!isLoggedIn);
+    setWelcomeMessage('Welcome Tono Sucipto');
+  };
+
+  const handleLogoutClick = () => {
+    setIsLoggedIn(false);
+    setWelcomeMessage('');
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className="">
+      <div className='flex justify-between items-center flex-col md:flex-row mb-4'>
+        <img src="./logo-kodak.jpg" alt="" />
+      {isLoggedIn && (
+          <button
+            className="bg-gray-300 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={handleLogoutClick}
+          >
+            Logout
+          </button>
+        
+      )}
+      {!isLoggedIn && (
+        <button
+          className="bg-gray-300 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          onClick={handleLoginClick}
         >
-          Learn React
-        </a>
-      </header>
+          Login
+        </button>
+      )}
+      </div>
+      {welcomeMessage && (
+            <h1 className="text-2xl bg-blue-300 rounded text-center font-bold h-screen w-full">{welcomeMessage}</h1>
+          )}
     </div>
   );
 }
